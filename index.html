@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="id"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Vellichor — Toko Buku Online</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%2314231c'/%3E%3Ctext x='16' y='23' font-size='20' text-anchor='middle' fill='%23b8923f' font-family='serif'%3EV%3C/text%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;700&family=Lora:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head><body>
+<header class="top">
+ <a class="logo" href="#" data-go="store">Vellichor</a>
+ <button class="burger" id="burger" aria-label="Menu">☰</button>
+ <nav id="nav"><a href="#" data-go="store">Home</a><a href="#kategori" data-go="store">Kategori</a><a href="#terbaru" data-go="store">Terbaru</a><a href="#tentang" data-go="store">Tentang</a></nav>
+ <input id="q" type="search" placeholder="Cari judul atau penulis…" aria-label="Cari buku">
+ <button class="btn ghost" id="accBtn">Masuk</button>
+ <button class="btn ghost" id="cartBtn">🛒 <b id="cartCount">0</b></button>
+</header>
+
+<main>
+<div id="v-store" class="view">
+ <section class="hero"><div><h1>Setiap buku menyimpan sebuah ruang tersendiri.</h1>
+ <p>Vellichor adalah toko buku daring untuk pembaca yang mencintai aroma kertas tua, sastra klasik, dan cerita yang betah dikenang.</p>
+ <a class="btn" href="#katalog">Jelajahi Koleksi</a></div></section>
+ <section><h2>Buku Unggulan</h2><div class="grid" id="featured"></div></section>
+ <section id="katalog"><h2>Katalog Buku</h2>
+  <div class="bar"><select id="cat" aria-label="Kategori"></select>
+  <select id="sort" aria-label="Urutkan"><option value="new">Terbaru</option><option value="asc">Harga termurah</option><option value="desc">Harga termahal</option></select></div>
+  <div class="grid" id="catalog"></div><p id="empty" class="muted" hidden>Tidak ada buku yang cocok. Coba kata kunci atau kategori lain.</p></section>
+ <section id="kategori"><h2>Kategori</h2><div class="chips" id="cats"></div></section>
+ <section id="terbaru"><h2>Koleksi Terbaru</h2><div class="grid" id="newest"></div></section>
+ <section id="tentang"><h2>Mengapa Vellichor</h2><div class="perks">
+  <div><h3>Kurasi teliti</h3><p>Setiap judul dipilih karena layak dibaca ulang.</p></div>
+  <div><h3>Pembayaran sederhana</h3><p>Pilih metode pembayaran, lalu konfirmasi via Whatsapp</p></div>
+  <div><h3>Ulasan jujur</h3><p>Baca komentar sesama pembaca sebelum membeli.</p></div></div></section>
+ <section class="cta"><h2>Temukan bacaan malam ini.</h2><a class="btn" href="#katalog">Mulai Berbelanja</a></section>
+ <section id="ulasan"><h2>Kata Para Pembaca</h2><div class="grid3" id="homeRev"></div></section>
+</div>
+
+<div id="v-login" class="view" hidden><div class="panel narrow">
+ <h2 id="authTitle">Masuk</h2>
+ <form id="authForm" novalidate>
+  <label>Username<input id="u" autocomplete="username"></label>
+  <label>Password<input id="p" type="password" autocomplete="current-password"></label>
+  <label id="p2w" hidden>Konfirmasi password<input id="p2" type="password"></label>
+  <p class="err" id="authErr" role="alert"></p>
+  <button class="btn" id="authSubmit">Masuk</button>
+  <button type="button" class="btn ghost" id="authSwitch">Daftar akun</button>
+  <button type="button" class="btn ghost" data-go="store">Kembali ke toko</button>
+ </form>
+</div></div>
+
+
+<div id="v-cart" class="view" hidden><section id="cartPage"></section></div>
+
+<div id="v-orders" class="view" hidden><div class="panel"><h2>Daftar Pesanan</h2><div class="scroll"><table id="orderTbl"></table></div></div></div>
+
+<div id="v-admin" class="view" hidden><div class="panel">
+ <h2>Dashboard Admin</h2><div class="stats" id="stats"></div>
+ <h3>Buku</h3><form id="bookForm" class="bform">
+  <input type="hidden" id="bid"><input id="bt" placeholder="Judul"><input id="ba" placeholder="Penulis">
+  <input id="bc" placeholder="Kategori"><input id="bp" type="number" min="0" placeholder="Harga (angka)">
+  <input id="bs" type="number" min="0" placeholder="Stok"><input id="bu" placeholder="URL sampul (opsional)">
+  <label class="full">Sampul baru (PNG/JPG, maks. 2 MB; atau isi URL di atas)<input id="bf" type="file" accept="image/png,image/jpeg"></label><img id="bprev" class="bprev" alt="Pratinjau sampul" hidden><textarea id="bsy" placeholder="Sinopsis"></textarea>
+  <button class="btn">Simpan buku</button><button type="button" class="btn ghost" id="bReset">Batal</button></form>
+ <div class="scroll"><table id="bookTbl"></table></div>
+ <h3>Ulasan</h3><div class="scroll"><table id="revTbl"></table></div>
+ <button class="btn danger" id="resetAll">Reset data toko</button></div></div>
+</main>
+
+<footer id="foot"><b class="logo">Vellichor</b><p>Toko buku daring untuk pembaca yang mencintai sastra, cerita, dan buku yang layak disimpan.</p><p class="muted small">Pemesanan dan konfirmasi pembayaran melalui WhatsApp.</p><p class="muted small">© Vellichor</p></footer>
+
+<div id="modal" hidden><div class="mbox"><button class="x" id="closeModal" aria-label="Tutup">✕</button><div id="mBody"></div></div></div>
+<div id="toast" role="status"></div>
+<script src="script.js"></script>
+</body></html>
